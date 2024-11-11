@@ -4,21 +4,25 @@ import { UserEntity } from '../domain/entities/user.entity'; // Cambia a UserEnt
 
 @Injectable()
 export class UserService {
-  constructor(private userRepository: UserRepository) {}
+    constructor(private userRepository: UserRepository) { }
 
-  public async findById(id: string | number): Promise<UserEntity | null> {
-      return this.userRepository.findById(id);
-  }
+    public async findById(id: string | number): Promise<UserEntity | null> {
+        return this.userRepository.findById(id);
+    }
 
-  public async findByUsername(username: string): Promise<UserEntity | null> {
-      return this.userRepository.findByUsername(username); // Llama al método correcto del repositorio
-  }
+    public async findByUsername(username: string): Promise<UserEntity | null> {
+        return this.userRepository.findByUsername(username);
+    }
 
-  public async findAll(): Promise<UserEntity[]> {
-      return this.userRepository.findAll();
-  }
+    public async findByEmail(email: string): Promise<UserEntity | null> {
+        return this.userRepository.findByEmail(email);
+    }
 
-  public async create(userData: Partial<UserEntity>): Promise<UserEntity> {
-      return this.userRepository.create(userData);
-  }
+    public async findAll(): Promise<UserEntity[]> {
+        return this.userRepository.findAll();
+    }
+
+    public async create(userData: Partial<UserEntity>): Promise<UserEntity> {
+        return this.userRepository.create(userData);
+    }
 }

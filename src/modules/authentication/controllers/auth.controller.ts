@@ -1,29 +1,22 @@
-// src/auth/auth.controller.ts
 import { Controller, Post, Body } from '@nestjs/common';
-import { AuthService } from '../services/auth.service'; // Asegúrate de ajustar la ruta
-import { UserEntity } from '../../users/domain/entities/user.entity'; // Asegúrate de ajustar la ruta
+import { AuthService } from '../services/auth.service';
+import { UserEntity } from '../../users/domain/entities/user.entity';
 import { RegisterDto } from '../dto/register.dto';
+import { LoginDto } from '../dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  async login(@Body() loginDto: { username: string; password: string }) {
-    const user = await this.authService.validateUser(loginDto.username, loginDto.password);
-    if (!user) {
-      return { message: 'Invalid credentials', token:"" };
-    }
-    return { message: 'Login successful', token:user.access_token};
+  async login(@Body() loginDto: LoginDto) {
+    const { message, data, error } = await this.authService.validateUser(loginDto);
+    return { message, data, error };
   }
 
   @Post('register')
   async register(@Body() registerDto: RegisterDto) {
-    try {
-      await this.authService.registerUser(registerDto);
-      return { message: 'User registered successfully' };
-    } catch (error) {
-      return { message: 'Registration failed', error: error.message };
-    }
+    const {message, data, error} = await this.authService.registerUser(registerDto);
+    return { message, data, error};
   }
 }
