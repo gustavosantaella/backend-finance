@@ -11,6 +11,12 @@ export class UserEntity {
   @Column({ name: 'last_name' })
   lastName: string;
 
+  @Column({ name: 'email' })
+  email: string;
+
+  @Column({ name: 'username' })
+  username: string;
+
   @Column({ name: 'password' })
   password: string;
 

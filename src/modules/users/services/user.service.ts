@@ -10,8 +10,8 @@ export class UserService {
       return this.userRepository.findById(id);
   }
 
-  public async findByFirstName(firstName: string): Promise<UserEntity | null> {
-      return this.userRepository.findByFirstName(firstName); // Llama al método correcto del repositorio
+  public async findByUsername(username: string): Promise<UserEntity | null> {
+      return this.userRepository.findByUsername(username); // Llama al método correcto del repositorio
   }
 
   public async findAll(): Promise<UserEntity[]> {

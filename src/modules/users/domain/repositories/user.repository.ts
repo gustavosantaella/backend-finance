@@ -16,8 +16,8 @@ export class UserRepository {
       return this.userRepo.findOne({ where: { id: numericId } });
   }
 
-  public async findByFirstName(firstName: string): Promise<UserEntity | null> {
-    return this.userRepo.findOne({ where: { firstName } }); // Busca por firstName
+  public async findByUsername(username: string): Promise<UserEntity | null> {
+    return this.userRepo.findOne({ where: { username } });
 }
 
   public async findAll(): Promise<UserEntity[]> {

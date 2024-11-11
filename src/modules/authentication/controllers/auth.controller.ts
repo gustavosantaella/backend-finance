@@ -2,6 +2,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from '../services/auth.service'; // Asegúrate de ajustar la ruta
 import { UserEntity } from '../../users/domain/entities/user.entity'; // Asegúrate de ajustar la ruta
+import { RegisterDto } from '../dto/register.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -14,5 +15,15 @@ export class AuthController {
       return { message: 'Invalid credentials', token:"" };
     }
     return { message: 'Login successful', token:user.access_token};
+  }
+
+  @Post('register')
+  async register(@Body() registerDto: RegisterDto) {
+    try {
+      await this.authService.registerUser(registerDto);
+      return { message: 'User registered successfully' };
+    } catch (error) {
+      return { message: 'Registration failed', error: error.message };
+    }
   }
 }
