@@ -4,10 +4,15 @@ import { AppService } from './example/app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './users/user.module';
+import { CORSModule } from './cors.module';
+import { AuthModule } from './authentication/auth.module';
+
 
 @Module({
   imports: [
+    CORSModule,
     ConfigModule.forRoot(),
+    AuthModule,
     UserModule,
     TypeOrmModule.forRoot({
       type: process.env.DATABASE_TYPE || 'mysql',
