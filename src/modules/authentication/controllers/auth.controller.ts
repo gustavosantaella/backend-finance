@@ -7,12 +7,12 @@ import { UserEntity } from '../../users/domain/entities/user.entity'; // Asegúr
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('login') // Ruta para iniciar sesión
+  @Post('login')
   async login(@Body() loginDto: { username: string; password: string }) {
     const user = await this.authService.validateUser(loginDto.username, loginDto.password);
     if (!user) {
-      return { message: 'Invalid credentials' }; // Manejo simple de errores
+      return { message: 'Invalid credentials', token:"" };
     }
-    return { message: 'Login successful', UserEntity }; // Aquí puedes devolver un token o datos del usuario
+    return { message: 'Login successful', token:user.access_token};
   }
 }
